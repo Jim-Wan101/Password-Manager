@@ -1,40 +1,23 @@
 # A simple password manager that allows for safe storage and retrieval of passwords
 
-import os
 import json
+import helper
 
 welcome_message = """
 =========================
 Welcome to Password Manager!
-Please L to login or R to register
+Enter L to login or R to register
 =========================
 """
 
-def register(username):
-    pass
-
-
-def login_choice():
-    login_choice = input()
-
-    if login_choice == "L":
-        username = input("Username: ")
-        return "login", username
-    elif login_choice == "R":
-        username = input("Please input your desired username: ")
-        return "register", username
-    else:
-        print("Please enter a valid command")
-        login_choice()
-
-def login(username):
-    pass
+# Implement forgot password feature
+# Implement security questions feature to go along with forgot password
 
 print(welcome_message)
 
-action, username = login_choice()
+action, username = helper.login_choice()
 
 if action == "register":
-    register(username)
+    helper.register(username)
 else:
-    login(username)
+    helper.login(username)
