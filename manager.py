@@ -2,6 +2,7 @@
 
 import json
 import helper
+import sys
 
 welcome_message = """
 =========================
@@ -20,4 +21,17 @@ action, username = helper.login_choice()
 if action == "register":
     helper.register(username)
 else:
-    helper.login(username)
+    status, index = helper.login(username)
+
+while status != "success":
+    username = input("Username: ")
+    status = helper.login(username)
+
+print("Login Success!")
+
+action = helper.print_options()
+
+if action == "X":
+    sys.exit()
+elif action == "L":
+    helper.print_list(username, index)

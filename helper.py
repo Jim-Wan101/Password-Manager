@@ -5,18 +5,15 @@ def register(username):
     with open("data.json", "r") as file:
         content = json.load(file)
 
-        index = 0
-
-        for i in range(len(content["accounts"])):
-            if username == content["accounts"][i]["username"]:
-                print("Username is already taken!")
-                username = input("Please choose another username: ")
-                register(username)
-            index += i
-        
-        content["accounts"].append({
-            "username": username,
-        })
+    for i in range(len(content["accounts"])):
+        if username == content["accounts"][i]["username"]:
+            print("Username is already taken!")
+            username = input("Please choose another username: ")
+            register(username)
+    
+    content["accounts"].append({
+        "username": username,
+    })
 
     with open("data.json", "w") as file:
         json.dump(content, file, indent=4)
@@ -36,4 +33,42 @@ def login_choice():
         login_choice()
 
 def login(username):
-    pass
+    with open("data.json", "r") as file:
+        content = json.load(file)
+
+    for i in range(len(content["accounts"])):
+        if username == content["accounts"][i]["username"]:
+            password = input("Please enter your password: ")
+
+            if password == content["accounts"][i]["password"]:
+                return "success", i
+            else:
+                print("The password entered is incorrect")
+                return "fail", i
+
+def print_options():
+    print("Press L to see a list of acount names for your passwords")
+    print("Press C to change a saved password")
+    print("Press D to delete your account")
+    print("Press X to logout")
+
+    action = input()
+
+    return action
+
+def print_list(username, i):
+    with open("data.json", "r") as file:
+        content = json.load(file)
+    
+    for entry in content["accounts"][i]["store"]:
+        print(*entry,sep='\n')
+
+def delete_account(username):
+    with open("data.json", "r") as file:
+        content = json.load(file)
+    
+    for i in range(len(content["accounts"])):
+        if username == content["accounts"][i]["username"]:
+            password = input("Please enter your password: ")
+
+        
