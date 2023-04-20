@@ -31,7 +31,14 @@ print("Login Success!")
 
 action = helper.print_options()
 
-if action == "X":
-    sys.exit()
-elif action == "L":
-    helper.print_list(username, index)
+while action != "X":
+    if action == "L":
+        helper.print_list(username, index)
+    elif action == "D":
+        helper.delete_account(username)
+        print("Your account has been successfully deleted")
+        break
+    action = input()
+
+print("Exiting the program")
+sys.exit()

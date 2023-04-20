@@ -47,11 +47,13 @@ def login(username):
                 return "fail", i
 
 def print_options():
-    print("Press L to see a list of acount names for your passwords")
-    print("Press C to change a saved password")
-    print("Press D to delete your account")
-    print("Press X to logout")
-
+    print("=========================")
+    print("Enter L to see a list of acount names for your passwords")
+    print("Enter C to change a saved password")
+    print("Enter D to delete your account")
+    print("Enter X to logout")
+    print("=========================")
+    
     action = input()
 
     return action
@@ -69,6 +71,9 @@ def delete_account(username):
     
     for i in range(len(content["accounts"])):
         if username == content["accounts"][i]["username"]:
-            password = input("Please enter your password: ")
+            del content["accounts"][i]
+            break
 
+    with open("data.json", "w") as file:
+                json.dump(content, file, indent=4)
         
