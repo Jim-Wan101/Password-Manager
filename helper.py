@@ -1,5 +1,6 @@
 import os
 import json
+import hashlib
 
 def register(username):
     with open("data.json", "r") as file:
@@ -49,6 +50,7 @@ def login(username):
 def print_options():
     print("=========================")
     print("Enter L to see a list of acount names for your passwords")
+    print("Enter V, followed by an account name, to view the password saved for the account")
     print("Enter C to change a saved password")
     print("Enter D to delete your account")
     print("Enter X to logout")
@@ -76,4 +78,9 @@ def delete_account(username):
 
     with open("data.json", "w") as file:
                 json.dump(content, file, indent=4)
-        
+            
+def view_password(name, i):
+    with open("data.json", "r") as file:
+        content = json.load(file)
+    
+    print(content["accounts"][i]["store"][0][name])

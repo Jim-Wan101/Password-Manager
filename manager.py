@@ -38,6 +38,10 @@ while action != "X":
         helper.delete_account(username)
         print("Your account has been successfully deleted")
         break
+    elif action == "V":
+        print("Which password would you like to view?")
+        account = input()
+        helper.view_password(account, index)
     action = input()
 
 print("Exiting the program")
