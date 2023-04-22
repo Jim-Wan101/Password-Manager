@@ -1,6 +1,7 @@
 import os
 import json
-import hashlib
+import base64
+from cryptography.fernet import Fernet 
 
 def register(username):
     with open("data.json", "r") as file:
@@ -51,6 +52,7 @@ def print_options():
     print("=========================")
     print("Enter L to see a list of acount names for your passwords")
     print("Enter V, followed by an account name, to view the password saved for the account")
+    print("Enter S to store a new password")
     print("Enter C to change a saved password")
     print("Enter D to delete your account")
     print("Enter X to logout")
@@ -77,10 +79,31 @@ def delete_account(username):
             break
 
     with open("data.json", "w") as file:
-                json.dump(content, file, indent=4)
+        json.dump(content, file, indent=4)
             
 def view_password(name, i):
     with open("data.json", "r") as file:
         content = json.load(file)
     
     print(content["accounts"][i]["store"][0][name])
+
+def store_password(account_name, i):
+    with open("data.json", "r") as file:
+        content = json.load(file)
+    
+    key = input("Please enter a 8 character secret key: ").encode()
+
+    key = key.ljust(32, b"=")
+
+    key = base64.urlsafe_b64encode(key)
+
+    key = Fernet(key)
+
+    password = input("Please input the password you would like to encrypt: ")
+
+    encrypted_password = key.encrypt(password.encode())
+
+    print(encrypted_password)
+
+    print(key.decrypt(encrypted_password).decode())
+    
