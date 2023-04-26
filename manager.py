@@ -43,7 +43,7 @@ while action != "X":
         account = input()
         helper.view_password(account, index)
     elif action == "S":
-        print("Please enter the account name for your password")
+        print("Please enter the desired account name for your password")
         account = input()
         helper.store_password(account, index)
     action = input()

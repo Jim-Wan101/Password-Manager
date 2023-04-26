@@ -90,20 +90,19 @@ def view_password(name, i):
 def store_password(account_name, i):
     with open("data.json", "r") as file:
         content = json.load(file)
-    
+
     key = input("Please enter a 8 character secret key: ").encode()
-
     key = key.ljust(32, b"=")
-
     key = base64.urlsafe_b64encode(key)
-
     key = Fernet(key)
 
     password = input("Please input the password you would like to encrypt: ")
 
     encrypted_password = key.encrypt(password.encode())
 
-    print(encrypted_password)
+    content["accounts"][i]["store"].append({
+        account_name: encrypted_password.decode()
+    })
 
-    print(key.decrypt(encrypted_password).decode())
-    
+    with open("data.json", "w") as file:
+        json.dump(content, file, indent=4)
