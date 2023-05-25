@@ -67,7 +67,7 @@ def print_list(username, i):
         content = json.load(file)
     
     for entry in content["accounts"][i]["store"]:
-        print(*entry,sep='\n')
+        print(*entry)
 
 def delete_account(username):
     with open("data.json", "r") as file:
@@ -85,7 +85,13 @@ def view_password(name, i):
     with open("data.json", "r") as file:
         content = json.load(file)
     
-    print(content["accounts"][i]["store"][0][name])
+    for obj in content["accounts"][i]["store"]:
+        for key, value in obj.items():
+            if key == name:
+                print(value)
+                break
+
+    print("Username not found. Enter V to try again")
 
 def store_password(account_name, i):
     with open("data.json", "r") as file:
